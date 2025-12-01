@@ -14,7 +14,7 @@ app.use(helmet());
 // 🌍 CORS : n'autoriser que ton frontend
 app.use(
   cors({
-    origin: env.frontendUrl,
+    origin: [env.frontendUrl, env.frontendUrlNetwork],
     methods: ["GET"], // pour l'instant, API lecture seule
   })
 );
@@ -22,7 +22,7 @@ app.use(
 // ⏱ Limitation des requêtes publiques
 const publicLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 60,             // 60 requêtes par minute par IP
+  max: 120,             // 120 requêtes par minute par IP
 });
 app.use(publicLimiter);
 
