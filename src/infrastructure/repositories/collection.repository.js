@@ -35,9 +35,10 @@ export async function getProductsByCollectionSlug({ slug, limit }) {
     limitClause = `LIMIT $2`;
   }
 
-  const query = `
+    const query = `
     SELECT
       p.id,
+      p.slug,
       p.name,
       p.description,
       p.category,
@@ -56,6 +57,7 @@ export async function getProductsByCollectionSlug({ slug, limit }) {
     ORDER BY cp.highlight_order ASC, p.id DESC
     ${limitClause};
   `;
+
 
   const { rows } = await pool.query(query, values);
 
